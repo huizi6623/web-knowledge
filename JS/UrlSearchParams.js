@@ -110,13 +110,25 @@ class UrlSearchParams2 {
         }
     }
 
-    // 定义遍历器
+    // Generator定义遍历器
     *[Symbol.iterator]() {
         let len = this.search.length;
         for(let i = 0; i < len; i ++) {
             yield this.search[i];
         }
     }
+    // // 定义遍历器
+    // [Symbol.iterator]() {
+    //     let self = this;
+    //     let count = 0;
+    //     return {
+    //         next() {
+    //             return count < self.search.length ?
+    //                 {value: self.search[count++], done: false} :
+    //                 {value: undefined, done: true}
+    //         }
+    //     }
+    // }
 }
 
 let obj = {
@@ -125,11 +137,7 @@ let obj = {
 };
 let url2 = new UrlSearchParams2(obj);
 
-for(let key of url2){
-    console.log(key);
+for(let [key, value] of url2){
+    console.log(key + ': ' + value);
 }
-url2.append('aaa', 'sss');
-console.log(url2.get('aaa'));
-console.log(url2.getAll('aaa'));
 
-url2.toString();

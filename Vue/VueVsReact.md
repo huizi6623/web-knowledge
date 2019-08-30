@@ -1,9 +1,8 @@
 ## vue和react的异同点和优势对比
 
-抄录自http://caibaojian.com/vue-vs-react.html
-
-https://juejin.im/post/5b8b56e3f265da434c1f5f76
-
+抄录自:  
+http://caibaojian.com/vue-vs-react.html  
+https://juejin.im/post/5b8b56e3f265da434c1f5f76  
 https://segmentfault.com/a/1190000018742160
 
 ### 1. 相同点
