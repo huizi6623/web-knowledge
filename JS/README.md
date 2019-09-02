@@ -1,4 +1,19 @@
-### 1. js各种循环性能对比
+### [原型链与继承]（原型链与继承.md)
+
+### 1. js的各种假值
+'', false, 0, null, undefined, NaN
+- false 与 0、'' 比较为true
+- null 和 undefined 比较为true
+- 0 和false、''、 [] 比较为true
+  - ![] == false
+  - [] == false
+- '' 和 false、 0 比较为true
+- null 和 undefined 比较为true
+  - null == undefined，双等时两者相等，且除了自身，仅与null、nudefined比较会返回true
+- NaN与任何值都不想等，包括自身
+  - ES6 中 Object.is(NaN, NaN) 返回true
+
+### 2. js各种循环性能对比
 
 - #### 正序和倒序，倒序循环是编程语言中常用的性能优化方法  
 

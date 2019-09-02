@@ -7,5 +7,23 @@
 <body>
 
 <script src="JS/ergodicMethods.js"></script>
+<script>
+    function _instanceof(target, origin){
+        while(target){
+            if(Object.getPrototypeOf(target) === origin){
+                return true;
+            }
+            target = Object.getPrototypeOf(target);
+        }
+        return false;
+    }
+
+    function _new(Constructor, ...args){
+        let obj = {};
+        Object.setPrototypeOf(obj, Constructor);
+        let res = Constructor.apply(obj, args);
+        return typeof res === 'object' ? res : obj;
+    }
+</script>
 </body>
 </html>
