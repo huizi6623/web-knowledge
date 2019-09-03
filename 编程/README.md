@@ -25,6 +25,7 @@ document.body.addEventListener('click', () => {
 ```
 答案： 2 1 4 3
 
+---
 ```
 async function async1() {
     console.log('async1 start');
