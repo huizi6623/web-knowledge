@@ -12,7 +12,7 @@
  原理就是通过获取指定的标签，使用getElementsByTagName来获取标签的内容，然后根据标签的className跟传进来的参数进行对比，如果相等就放入数组中最后返回。   
 
 ### 2. 输出结果
--
+---
 ```
 document.body.addEventListener('click', () => {
  Promise.resolve().then(()=>console.log(1));
