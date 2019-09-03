@@ -14,7 +14,36 @@
   - ES6 中 Object.is(NaN, NaN) 返回true
 
 ### 2. 禁止复制粘贴怎么实现以及如何破解
+[参考文档](https://www.cnblogs.com/momo798/p/6797670.html)
 
+#### 实现禁止复制粘贴
+```
+<style type="text/css">
+/* 最简单的实现禁止复制的方法，采用css方式禁止文字选择，当然这只兼容webkit内核浏览器 */
+* { -webkit-user-select: none; }
+p {font-family: 'Microsoft Yahei';font-size: 28px;}
+input {width: 80%; padding: 10px 20px;}
+</style>
+<h1>本代码在UC手机浏览器上不生效，其它手机浏览器暂未发现问题、PC全部没问题。</h1>
+<p>这是一段示例文字，我无法被选中，也无法按下鼠标右键，即使被选中你也无法复制！</p>
+<input type="text" value="文本框中的文字可以选中，但是无法复制粘贴"/>
+<script type="text/javascript">
+// 禁止右键菜单
+document.oncontextmenu = function(){ return false; };
+// 禁止文字选择
+document.onselectstart = function(){ return false; };
+// 禁止复制
+document.oncopy = function(){ return false; };
+// 禁止剪切
+document.oncut = function(){ return false; };
+// 禁止粘贴
+document.onpaste = function(){ return false; };
+</script>
+```
+#### 破解复制粘贴
+绝大部分限制都是采用js实现的，那我禁用js不久OK了么？突然发现我太聪明了！假如你使用的是Chrome或者其它国产webkit内核浏览器，按下F12弹出开发者工具，再按下F1弹出设置，勾选Disable JavaScript，再按下ESC键关闭设置（其它浏览器如何禁止JavaScript请自行研究），然后试试是不是可以复制了？
+![](images/disableJs.png)
+如果此时仍无法选择文字，找到你要复制文字的地方，看看是不是添加了-webkit-user-select: none的样式，如果有，将其去掉即可
 
 ### 3. js各种循环性能对比
 

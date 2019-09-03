@@ -3,113 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+        /* 最简单的实现禁止复制的方法，采用css方式禁止文字选择，当然这只兼容webkit内核浏览器 */
+        * { -webkit-user-select: none; }
+        p {font-family: 'Microsoft Yahei';font-size: 28px;}
+        input {width: 80%; padding: 10px 20px;}
+    </style>
 </head>
 <body>
+<h1>本代码在UC手机浏览器上不生效，其它手机浏览器暂未发现问题、PC全部没问题。</h1>
+<p>这是一段示例文字，我无法被选中，也无法按下鼠标右键，即使被选中你也无法复制！</p>
+<input type="text" value="文本框中的文字可以选中，但是无法复制粘贴"/>
 
-<script src="JS/ergodicMethods.js"></script>
 <script>
-    document.body.addEventListener('click', () => {
-        Promise.resolve().then(()=>console.log(1));
-        console.log(2)
-    });
-    document.body.addEventListener('click', () => {
-        Promise.resolve().then(()=>console.log(3));
-        console.log(4)
-    });
-
-    async function async1() {
-        console.log('async1 start');
-        await async2();
-        console.log('async1 end');
-    }
-    async function async2() {
-        console.log('async2');
-    }
-
-    console.log('script start');
-    setTimeout(function() {
-        console.log('setTimeout');
-    }, 0);
-    async1();
-    new Promise(function(resolve) {
-            console.log('promise1');
-            resolve();
-        }
-    ).then(function() {
-        console.log('promise2');
-    });
-    console.log('script end');
-
-
-
-    function findRoad(root, total){
-        if(root === null){
-            return [];
-        }
-        let res = [];
-        computedTree(root, [], 0, res, total);
-        return res;
-    }
-
-    function computedTree(node, path, sum, res, total){
-        if(node === null){
-            return ;
-        }
-
-        let newPath = path.concat(node.value);
-        sum += node.value;
-        if(node.left === null && node.right === null && sum === total){
-            res.push(newPath);
-            return ;
-        }
-        computedTree(node.left, newPath, sum, res, total);
-        computedTree(node.right, newPath, sum, res, total);
-    }
-
-    function Node(value){
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-
-    // function findRoad(tree, total){
-    //     if(tree === null){
-    //         return [];
-    //     }
-    //     let res = [];
-    //     computedTree(tree , [] , 0 , res, total);
-    //     return res;
-    // }
-    //
-    // function computedTree(node, path, sum, res, total){
-    //     if(node === null){
-    //         return ;
-    //     }
-    //
-    //     let newPath = path.concat(node.value);
-    //     sum += node.value;
-    //     if(node.left === null && node.right === null && total === sum){
-    //         res.push(newPath);
-    //         return ;
-    //     }
-    //     computedTree(node.left, newPath, sum, res, total);
-    //     computedTree(node.right, newPath, sum, res, total);
-    // }
-
-    let root = new Node(1);
-    let node1 = new Node(2);
-    let node2 = new Node(3);
-    let node3 = new Node(3);
-    let node5 = new Node(3);
-    let node4 = new Node(2);
-    root.left = node1;
-    root.right = node2;
-    node1.left = node3;
-    node3.right = node5;
-    node2.right = node4;
-
-    console.log(findRoad(root, 6));
-
+    document.oncontextmenu = function(){ return false; };
+    // 禁止文字选择
+    document.onselectstart = function(){ return false; };
+    // 禁止复制
+    document.oncopy = function(){ return false; };
+    // 禁止剪切
+    document.oncut = function(){ return false; };
+    // 禁止粘贴
+    document.onpaste = function(){ return false; };
 </script>
 </body>
 </html>
