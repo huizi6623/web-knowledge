@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex</title>
+    <style>
+        .container{
+            width: 600px;
+            height: 600px;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: space-between;
+        }
+        .container div{
+            width: 100px;
+            height: 100px;
+        }
+        .container div:first-child{
+            background: red;
+            align-self: flex-start;
+        }
+        .container div:nth-child(2){
+            background: green;
+            align-self: center;
+        }
+        .container div:nth-child(3){
+            background: blue;
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+</div>
+</body>
+</html>
