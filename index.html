@@ -8,22 +8,108 @@
 
 <script src="JS/ergodicMethods.js"></script>
 <script>
-    function _instanceof(target, origin){
-        while(target){
-            if(Object.getPrototypeOf(target) === origin){
-                return true;
-            }
-            target = Object.getPrototypeOf(target);
-        }
-        return false;
+    document.body.addEventListener('click', () => {
+        Promise.resolve().then(()=>console.log(1));
+        console.log(2)
+    });
+    document.body.addEventListener('click', () => {
+        Promise.resolve().then(()=>console.log(3));
+        console.log(4)
+    });
+
+    async function async1() {
+        console.log('async1 start');
+        await async2();
+        console.log('async1 end');
+    }
+    async function async2() {
+        console.log('async2');
     }
 
-    function _new(Constructor, ...args){
-        let obj = {};
-        Object.setPrototypeOf(obj, Constructor);
-        let res = Constructor.apply(obj, args);
-        return typeof res === 'object' ? res : obj;
+    console.log('script start');
+    setTimeout(function() {
+        console.log('setTimeout');
+    }, 0);
+    async1();
+    new Promise(function(resolve) {
+            console.log('promise1');
+            resolve();
+        }
+    ).then(function() {
+        console.log('promise2');
+    });
+    console.log('script end');
+
+
+
+    function findRoad(root, total){
+        if(root === null){
+            return [];
+        }
+        let res = [];
+        computedTree(root, [], 0, res, total);
+        return res;
     }
+
+    function computedTree(node, path, sum, res, total){
+        if(node === null){
+            return ;
+        }
+
+        let newPath = path.concat(node.value);
+        sum += node.value;
+        if(node.left === null && node.right === null && sum === total){
+            res.push(newPath);
+            return ;
+        }
+        computedTree(node.left, newPath, sum, res, total);
+        computedTree(node.right, newPath, sum, res, total);
+    }
+
+    function Node(value){
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+
+    // function findRoad(tree, total){
+    //     if(tree === null){
+    //         return [];
+    //     }
+    //     let res = [];
+    //     computedTree(tree , [] , 0 , res, total);
+    //     return res;
+    // }
+    //
+    // function computedTree(node, path, sum, res, total){
+    //     if(node === null){
+    //         return ;
+    //     }
+    //
+    //     let newPath = path.concat(node.value);
+    //     sum += node.value;
+    //     if(node.left === null && node.right === null && total === sum){
+    //         res.push(newPath);
+    //         return ;
+    //     }
+    //     computedTree(node.left, newPath, sum, res, total);
+    //     computedTree(node.right, newPath, sum, res, total);
+    // }
+
+    let root = new Node(1);
+    let node1 = new Node(2);
+    let node2 = new Node(3);
+    let node3 = new Node(3);
+    let node5 = new Node(3);
+    let node4 = new Node(2);
+    root.left = node1;
+    root.right = node2;
+    node1.left = node3;
+    node3.right = node5;
+    node2.right = node4;
+
+    console.log(findRoad(root, 6));
+
 </script>
 </body>
 </html>
