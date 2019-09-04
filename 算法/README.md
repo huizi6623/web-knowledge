@@ -33,3 +33,26 @@ function computedTree(node, path, sum, res, total){
     computedTree(node.right, newPath, sum, res, total);
 }
 ```
+#### 2. 写一个function find(dataList, where){},找到dataList中指定where的数据
+where结构 {id: 111}
+
+![](images/findWhere.png)
+```
+function find(dataList, where){
+    const {id} = where;
+    const len = dataList.length;
+
+    for(let i = 0; i < len; i ++){
+        console.log(dataList[i].id);
+        if (dataList[i].id === id) {
+            return dataList[i];
+        } else if (dataList[i].children.length) {
+            let res = find(dataList[i].children, where);
+            if(res) {
+                return res;
+            }
+        }
+    }
+    return null;
+}
+```

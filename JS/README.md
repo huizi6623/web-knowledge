@@ -1,4 +1,5 @@
 ### [原型链与继承](原型链与继承.md)
+### [setTimeout、setInterval、requestAnimationFrame](requestAnimationFrame.md)
 
 ### 1. js的各种假值
 '', false, 0, null, undefined, NaN
