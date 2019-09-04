@@ -83,7 +83,7 @@ function onClick(e){
 outer.addEventListener('click', onClick);
 inner.addEventListener('click', onClick);
 ```
-点击outer输出：
+点击outer输出：  
 outer  
 outer  
 resolve  
@@ -93,7 +93,7 @@ raf
 timeout（输出位置不确定）  
 idle  
 
-点击inner输出：
+点击inner输出：  
 inner  
 inner  
 resolve  
