@@ -226,6 +226,7 @@ class MyPromise {
         ```
         
     - 如果 onRejected 不是函数且 promise1 状态为失败（Rejected），promise2必须变为失败（Rejected） 并返回 promise1 失败的值
+        ```
         let promise1 = new Promise((resolve, reject) => {
           setTimeout(() => {
             reject('fail')
@@ -237,6 +238,7 @@ class MyPromise {
         }, err => {
           console.log(err)  // 1秒后打印出：fail
         })   
+        ```
 
     根据上面的规则，我们来为 完善 MyPromise  
     修改 constructor : 增加执行队列  

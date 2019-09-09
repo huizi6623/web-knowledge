@@ -1,3 +1,5 @@
+### [Promise](Promise.md)
+ 
 ### 1. let const
 - 暂时性死区
   - ES6 明确规定，如果区块中存在 let 和 const 命令，这个区块对这些命令声明的变量，从⼀开始就形成了封闭作⽤域。凡是在声明之前就使⽤这些变量，就会报错。
@@ -13,9 +15,7 @@
 - 箭头函数不能当做Generator函数，不能使⽤yield关键字
 - 使⽤call和apply调⽤时，只是传⼊了参数，对this没有影响
 
-### 3. [Promise](Promise.md)
-
-### 4. 模块化
+### 3. 模块化
 - CMD和AMD
   - AMD是requireJs规范化的产物，CMD是seaJs规范化的产物
   - AMD推崇依赖前置，CMD推崇依赖就近

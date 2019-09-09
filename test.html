@@ -231,6 +231,35 @@
     }).then(value => {
         console.log(value);
     })
+
+    Promise.prototype.all2 = function(arr){
+        let len = arr.length;
+        let currentCount = 0;
+        let count = 0;
+        let res = [];
+        let currentArr = arr.splice(0, 10);
+
+        return new Promise(function(resolve, reject){
+            let runItem = item => {
+                currentCount ++;
+                item.then(value => {
+                    currentCount --;
+                    count ++;
+                    res.push(value);
+                    if(currentCount < 10 && arr.length){
+                        runItem(arr.splice(0, 1));
+                    }
+                    if(count == len ){
+                        resolve(res);
+                    }
+                }, err => { reject(err) })
+            };
+
+            currentArr.forEach(item => {
+                runItem(item);
+            })
+        })
+    }
 </script>
 </body>
 </html>
