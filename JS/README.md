@@ -1,4 +1,5 @@
 ### [原型链与继承](原型链与继承.md)
+### [执行环境及作用域](执行环境.md)
 ### [setTimeout、setInterval、requestAnimationFrame](requestAnimationFrame.md)
 
 ### 1. js的各种假值
@@ -124,3 +125,31 @@ document.onpaste = function(){ return false; };
     1.大数据量循环，尽量用倒序排序，至于倒序为什么性能更好，有知道的可以留言  
     2.for和foreach的性能相近，在数据量很大，比如一千万时，foreach因为内部封装，比for更耗时  
     3.减少对象成员和数组项的查找，比如缓存数组长度，避免每次查找数组 length 属性 
+
+### 4. 深拷贝与浅拷贝
+- 浅拷贝: 以赋值的形式拷贝引用对象，仍指向同一个地址，修改时原对象也会受到影响
+
+    - Object.assign
+    - 展开运算符(...)
+    
+    注：这两个一级深拷贝，下级浅拷贝
+
+- 深拷贝: 完全拷贝一个新对象，修改时原对象不再受到任何影响
+
+    - JSON.parse(JSON.stringify(obj)): 性能最快
+        - 具有循环引用的对象时，报错
+        - 当值为函数、undefined、或symbol时，无法拷贝
+    - 递归进行逐一赋值
+    
+ 实现一个深拷贝：  
+ [参考文档](https://juejin.im/post/5d6aa4f96fb9a06b112ad5b1)
+ ![](images/deepClone.jpg)
+
+### 5. js处理异步的方式
+- 回调函数
+- 事件监听
+- 观察者模式
+- 发布/订阅模式
+- [promise](../ES6/Promise.md)
+- async/await  
+    在函数声明前写async代表这是一个异步函数，里面有await关键字，会等当前语句执行完毕才会往下执行。

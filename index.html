@@ -4,27 +4,66 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style type="text/css">
-        /* 最简单的实现禁止复制的方法，采用css方式禁止文字选择，当然这只兼容webkit内核浏览器 */
-        * { -webkit-user-select: none; }
-        p {font-family: 'Microsoft Yahei';font-size: 28px;}
-        input {width: 80%; padding: 10px 20px;}
+       .left{
+           float: left;
+           width: 200px;
+           height: 200px;
+           background: blue;
+       }
+        .main{
+            overflow: hidden;
+            width: auto;
+            height: 300px;
+            background: #ccc;
+        }
+        span{
+            background:green;
+            line-height: 30px;
+            margin: 20px;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
-<h1>本代码在UC手机浏览器上不生效，其它手机浏览器暂未发现问题、PC全部没问题。</h1>
-<p>这是一段示例文字，我无法被选中，也无法按下鼠标右键，即使被选中你也无法复制！</p>
-<input type="text" value="文本框中的文字可以选中，但是无法复制粘贴"/>
+<!--<div class="box">-->
+    <!--<div class="left"></div>-->
+    <!--<div class="main"></div>-->
+<!--</div>-->
+<span>lallalala</span>
 
 <script>
-    document.oncontextmenu = function(){ return false; };
-    // 禁止文字选择
-    document.onselectstart = function(){ return false; };
-    // 禁止复制
-    document.oncopy = function(){ return false; };
-    // 禁止剪切
-    document.oncut = function(){ return false; };
-    // 禁止粘贴
-    document.onpaste = function(){ return false; };
+
+    let arr = '5 1 1 1 2 3';
+    console.log(fun(arr.split(' '), 5));
+
+    function fun(arr, s){
+        let maxN = 0;
+        let sum = 0;
+        let curArr = [];
+
+        arr.forEach(item => {
+            let cur = parseInt(item);
+            if(sum + cur <= s){
+                sum += cur;
+                curArr.push(cur);
+            } else {
+                if(maxN < curArr.length){
+                    maxN = curArr.length;
+                }
+                while(curArr.length){
+                    sum = sum - curArr.shift();
+                    if(sum + cur <= s){
+                        break;
+                    }
+                }
+                if(sum + cur <= s){
+                    sum += cur;
+                    curArr.push(cur);
+                }
+            }
+        });
+        return maxN;
+    }
 </script>
 </body>
 </html>

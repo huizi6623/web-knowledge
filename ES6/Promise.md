@@ -241,7 +241,8 @@ class MyPromise {
         ```
 
     根据上面的规则，我们来为 完善 MyPromise  
-    修改 constructor : 增加执行队列  
+    
+    **修改 constructor : 增加执行队列**  
     由于 then 方法支持多次调用，我们可以维护两个数组，将每次 then 方法注册时的回调函数添加到数组中，等待执行
     ```
     constructor (handle) {
@@ -264,7 +265,7 @@ class MyPromise {
       }
     }
     ```
-    添加then方法  
+    **添加then方法**  
     首先，then 返回一个新的 Promise 对象，并且需要将回调函数加入到执行队列中
     ```
     // 添加then方法
