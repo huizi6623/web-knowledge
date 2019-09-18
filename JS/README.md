@@ -149,7 +149,13 @@ document.onpaste = function(){ return false; };
 - 回调函数
 - 事件监听
 - 观察者模式
-- 发布/订阅模式
+- 发布/订阅模式(比观察者模式多一个调度中心)
 - [promise](../ES6/Promise.md)
 - async/await  
     在函数声明前写async代表这是一个异步函数，里面有await关键字，会等当前语句执行完毕才会往下执行。
+    
+### 6. 事件循环
+事件循环是指: 执行一个宏任务，然后执行清空微任务列表，循环再执行宏任务，再清微任务列表
+
+微任务 microtask(jobs): promise.then / ajax / Object.observe(该方法已废弃) 
+宏任务 macrotask(task): setTimeout / script / IO / UI Rendering
