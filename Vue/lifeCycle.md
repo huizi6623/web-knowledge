@@ -78,23 +78,33 @@ var vm = new Vue({
 
 #### 1.1 生命周期   
 1.1.1 beforeCreate-created间的生命周期
-![](images/lifeCycle1.jpg)  
+
+![](images/lifeCycle1.jpg) 
+ 
 在这个生命周期之间，进行初始化事件。
+
 ![](images/lifeCyclerResult1.jpg)  
+
 通过代码结果可知：在beforeCreated钩子执行时，$el、$data以及message都为undefined,created的时候
 $data及message已经有内容了，只是组件还没有挂载到元素上。
     
 1.1.2 created-beforeMount间的生命周期
+
 ![](images/lifeCycle2.jpg)  
+
 在这一阶段中会进行两次判断：  
 - 首先判断是否有‘el’选项？如果有的话就继续向下编译，如果没有el选项，则停止编译。也就意味着
 停止了生命周期，直到在该vue实例上在此调用vm.$mount(el)才会继续往下编译。
     - 在这先把代码中的el注释掉，执行结果如下：
+    
     ![](images/lifeCyclerResult2.jpg)  
+    
     当$el不挂载到vue时，只会进行beforeCreated和created这两个钩子函数，不会进行beforeMount和
     mounted钩子函数。
     - 然后在控制台输入vm.$mount('app')后执行结果如下：
+    
     ![](images/lifeCyclerResult3.jpg)  
+    
     这里就可以继续执行了。
 
 - 第二判断是否有‘template’模板？如果有的话直接通过渲染函数渲染出来。如果没有的话，就直接调用$el的外部html进行渲染。
@@ -133,20 +143,30 @@ $data及message已经有内容了，只是组件还没有挂载到元素上。
     所以综合排名优先级：render函数>template选项>外部html.
 
 1.1.3 beforeMount-mounted钩子函数的生命周期  
+
 ![](images/lifeCycle3.jpg)  
+
 这个生命周期在于虚拟DOM的渲染。  
+
 ![](images/lifeCyclerResult4.jpg)  
+
 在beforeMounted钩子函数中，挂载了$el，但只拿到{{message}}，没有完成渲染，而mounted钩子函数是
 已经完成了整个流程。
 
 1.1.4 beforeUpdate-updated间的生命周期
+
 ![](images/lifeCycle4.jpg)  
+
 这一步是当vue的data数据发生改变，就会触发对应组件的重新渲染。然后依次触发beforeUpdate和update钩子函数。
+
 ![](images/lifeCyclerResult5.jpg)  
+
 **PS：** 这俩钩子函数只能在已渲染到模板里的数据发生改变后才能触发，否则不触发。
 
 1.1.5 beforeDestroy-destroyed间的生命周期
+
 ![](images/lifeCycle5.jpg)  
+
 beforeDestroy钩子函数在实例销毁之前调用。在这一步，实例仍然完全可用。destroyed钩子函数在vue实例
 销毁后调用。调用后，Vue实例上的所有东西都会解绑，所有事件监听器会被移除，所有的子实例也会被销毁。
 
