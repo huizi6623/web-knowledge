@@ -19,7 +19,7 @@ localStorage有事件通知机制，window.onStorage用来监听localStorage的�
 由于浏览器的同源策略，同源策略要求源相同才能正常进行通信，即协议、域名、端口号都完全一致。  
 跨域并不是请求发不出去，请求能发出去，服务端能收到请求并正常返回结果，只是结果被浏览器拦截了。
 
-- JsonP:利用`<script>`标签的跨域特性，可以不受限制的从其他域下加载资源，缺点是只支持get请求，类似的还有img标签。
+- Jsonp:利用`<script>`标签的跨域特性，可以不受限制的从其他域下加载资源，缺点是只支持get请求，类似的还有img标签。
     ```
     function jsonP(url, callback, success){
             let script = document.createElement('script');
