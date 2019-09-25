@@ -159,3 +159,40 @@ document.onpaste = function(){ return false; };
 
 微任务 microtask(jobs): promise.then / ajax / Object.observe(该方法已废弃) 
 宏任务 macrotask(task): setTimeout / script / IO / UI Rendering
+
+### 7. 节流、防抖
+防抖与节流函数是一种最常用的**高频触发优化方式**，能对性能有较大的帮助。
+
+防抖 (debounce): 将多次高频操作优化为只在最后一次执行，通常使用的场景是：用户输入，只需再输入完成后做一次输入校验即可。
+
+    function debounce(callback, delay){
+        let timer = null;
+        return function(){
+            let self = this;
+            let args = arguments;
+            if(timer){
+                clearTimeout(timer);
+                timer = null;
+            }
+            timer = setTimeout(() => {
+                callback.apply(self, arguments);
+            }, delay);
+        }
+    }
+
+节流(throttle): 每隔一段时间后执行一次，也就是降低频率，将高频操作优化成低频操作，通常使用场景: 滚动条事件 或者 resize 事件，通常每隔 100~500 ms执行一次即可。
+
+    function throttle(callback, delay){
+        let timer = null;
+        return function(){
+            let self = this;
+            let args = arguments;
+            if(! timer){
+                timer = setTimeout(() => {
+                    callback.apply(self, arguments);
+                    clearTimeout(timer);
+                    timer = null;
+                }, delay);
+            }
+        }
+    }

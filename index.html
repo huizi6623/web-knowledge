@@ -32,32 +32,22 @@
 <span>lallalala</span>
 
 <script>
-    function fun(arr, operate){
-        for(let i = 0; i < operate.length; i ++){
-            arr[operate[i][0] - 1] = operate[i][1];
-            innerFun(arr);
-        }
-
-        function innerFun(a){
-            let res = a.slice();
-            while(res.length > 1){
-                for(let i = 0; i < res.length; i ++){
-                    res[i] = res[i] | res[i + 1];
-                    res.splice(i+1, 1);
-                }
-                if(res.length === 1){
-                    break;
-                }
-                for(let i = 0; i < res.length; i ++){
-                    res[i] = res[i] ^ res[i + 1];
-                    res.splice(i+1, 1);
+    function findMaxSub(arr){
+        let res = [];
+        for(let i = 0; i < arr.length; i ++){
+            res[i] = [arr[i]];
+            for(let j = 0; j < i; j ++){
+                if((arr[j] < arr[i]) && (res[j].length + 1 > res[i].length)){
+                    res[i] = [...res[j], arr[i]];
                 }
             }
-            console.log(res[0]);
         }
+        return res.reduce((pre, cur) => {
+            return pre.length > cur.length ? pre : cur;
+        }, []);
     }
 
-    fun([1,2,3,4], [[1,4],[3,4],[1,3]]);
+    console.log(findMaxSub([1,4,2,3,5,10,7,6,8]));
 </script>
 </body>
 </html>

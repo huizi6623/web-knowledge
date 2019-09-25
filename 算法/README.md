@@ -33,7 +33,7 @@ function computedTree(node, path, sum, res, total){
     computedTree(node.right, newPath, sum, res, total);
 }
 ```
-#### 2. 写一个function find(dataList, where){},找到dataList中指定where的数据
+#### 2. 写一个function find(dataList, where){},找到dataList中指定where的数据（阿里）
 where结构 {id: 111}
 
 ![](images/findWhere.png)
@@ -43,7 +43,6 @@ function find(dataList, where){
     const len = dataList.length;
 
     for(let i = 0; i < len; i ++){
-        console.log(dataList[i].id);
         if (dataList[i].id === id) {
             return dataList[i];
         } else if (dataList[i].children.length) {
@@ -56,3 +55,42 @@ function find(dataList, where){
     return null;
 }
 ```
+
+#### 3. 数组的最大深度
+    function maxDeep(array, depth = 1){
+        let arr = array.filter(item => Array.isArray(item));
+        if(arr.length){
+            return Math.max(...arr.map(item => maxDeep(item, depth + 1)));
+        }
+        return depth;
+    }
+    
+#### 4. 数组的最长递归子序列
+    function findMaxSub(arr){
+        let res = [];
+        for(let i = 0; i < arr.length; i ++){
+            res[i] = [arr[i]];
+            for(let j = 0; j < i; j ++){
+                if((arr[j] < arr[i]) && (res[j].length + 1 > res[i].length)){
+                    res[i] = [...res[j], arr[i]];
+                }
+            }
+        }
+        return res.reduce((pre, cur) => {
+            return pre.length > cur.length ? pre : cur;
+        }, []);
+    }
+
+#### 5. 无序数组中两个值的和等于给定值
+    function findTarget(arr, target){
+        let map = {};
+        let res = [];
+        arr.forEach(item => {
+            if(map[item]){
+                res.push([target-item, item]);
+            } else {
+                map[target-item] = true;
+            }
+        });
+        return res;
+    }
