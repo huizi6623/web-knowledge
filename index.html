@@ -48,6 +48,18 @@
     }
 
     console.log(findMaxSub([1,4,2,3,5,10,7,6,8]));
+
+    function jsonP(url, callback, success){
+        let script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        window[callback] = function(data){
+            success && success(data);
+            document.removeChild(script);
+            delete window[callback];
+        }
+        document.appendChild(script);
+    }
 </script>
 </body>
 </html>

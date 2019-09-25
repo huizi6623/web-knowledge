@@ -196,3 +196,30 @@ document.onpaste = function(){ return false; };
             }
         }
     }
+    
+### 8. 阻止冒泡、取消默认事件
+- 阻止冒泡：  
+w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true；  
+- 取消默认事件：  
+w3c的方法是e.preventDefault()，IE则是使用e.returnValue = false;
+
+### 9. WebWorker
+现代浏览器为JavaScript创造的 多线程环境。可以新建并将部分任务分配到worker线程并行运行，两个线程可 独立运行，互不干扰，可通过自带的 消息机制 相互通信。
+
+基本用法:  
+
+    // 创建 worker
+    const worker = new Worker('work.js');
+    
+    // 向主进程推送消息
+    worker.postMessage('Hello World');
+    
+    // 监听主进程来的消息
+    worker.onmessage = function (event) {
+      console.log('Received message ' + event.data);
+    }
+    
+限制:
+- 同源限制
+- 无法使用 document / window / alert / confirm
+- 无法加载本地资源
