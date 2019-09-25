@@ -65,7 +65,7 @@ function find(dataList, where){
         return depth;
     }
     
-#### 4. 数组的最长递归子序列
+#### 4. 数组的最长递归子序列(猿辅导)
     function findMaxSub(arr){
         let res = [];
         for(let i = 0; i < arr.length; i ++){
