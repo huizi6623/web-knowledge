@@ -1,65 +1,362 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style type="text/css">
-        .left{
-            float: left;
-            width: 200px;
-            height: 200px;
-            background: blue;
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分布式深度学习分类识别演示系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
         }
-        .main{
-            overflow: hidden;
-            width: auto;
-            height: 300px;
-            background: #ccc;
+        body, html{
+            width: 100%;
+            height: 100%;
         }
-        span{
-            background:green;
-            line-height: 30px;
+        .context{
+            width: 800px;
+            height: 100%;
+            margin: 0 auto;
+            background: #ddd;
+            overflow: auto;
+            padding-bottom: 100px;
+        }
+        header{
+            font-size: 28px;
+            font-weight: normal;
+            text-align: center;
+            margin: 30px;
+        }
+        .divider{
+            width: 100%;
+            height: 2px;
+            background: #bbb;
+            margin: 10px 0;
+        }
+        .formRow, .resultArea{
             margin: 20px;
-            padding: 20px;
         }
-    </style>
-</head>
-<body>
-<!--<div class="box">-->
-<!--<div class="left"></div>-->
-<!--<div class="main"></div>-->
-<!--</div>-->
-<span>lallalala</span>
-
-<script>
-    function findMaxSub(arr){
-        let res = [];
-        for(let i = 0; i < arr.length; i ++){
-            res[i] = [arr[i]];
-            for(let j = 0; j < i; j ++){
-                if((arr[j] < arr[i]) && (res[j].length + 1 > res[i].length)){
-                    res[i] = [...res[j], arr[i]];
-                }
+        .formRow::after{
+            content: '';
+            display: block;
+            height: 0;
+            clear: both;
+        }
+        .formLeft{
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 21px;
+            width: 100px;
+            float: left;
+        }
+        .formRight{
+            margin-left: 120px;
+            width: auto;
+        }
+        .formRight label{
+            font-size: 16px;
+            line-height: 21px;
+        }
+        .radioItem{
+            display: inline-block;
+            margin-right: 15px;
+        }
+        .formRow textarea{
+            display: block;
+            width: 100%;
+            height: 100px;
+            border: none;
+            font-size: 16px;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+        input[type='radio']{
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+        }
+        .matchImages {
+            display: flex;
+            justify-content: space-between;
+        }
+        .matchImages img{
+            width: 100%;
+            height: 100px;
+        }
+        .matchImages .radioItem{
+            width: 20%;
+            margin-right: 0;
+        }
+        .matchImages input {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+        .matchImages input[checked] ~ img {
+            border: 1px solid blue;
+        }
+        .submitBtn{
+            text-align: center;
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            font-size: 20px;
+            background: #2a69b0;
+            border: none;
+            border-radius: 10px;
+            display: block;
+            margin: 30px auto 10px;
+        }
+        .resultAnalysis, .resultChart{
+            width: 48%;
+            display: inline-block;
+            text-align: center;
+            vertical-align: top;
+        }
+        .resultAnalysis h3, .resultChart h3{
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 21px;
+            margin-bottom: 20px;
+        }
+        .resultRow{
+            text-align: left;;
+            margin: 10px 0 10px 60px;
+        }
+        @media screen and (max-width: 750px){
+            html{
+                font-size: 2.6667vw;
+            }
+            .context{
+                width: 100%;
+            }
+            header{
+                font-size: 2rem;
+                margin: 3rem;
+            }
+            .divider{
+                height: 1px;
+                margin: 2rem 0;
+            }
+            .formRow, .resultArea{
+                margin: 3rem 4vw;
+            }
+            .formLeft{
+                display: block;
+                font-size: 1.8rem;
+                line-height: 2.1rem;
+                float: none;
+                width: auto;
+                margin-bottom: 1rem;
+            }
+            .formRight{
+                margin-left: 0;
+            }
+            .formRight label{
+                font-size: 1.6rem;
+                line-height: 2.1rem;
+            }
+            .radioItem{
+                margin-right: 1.5rem;
+            }
+            .formRow textarea{
+                height: 10rem;
+                font-size: 1.6rem;
+            }
+            input[type='radio']{
+                width: 1.6rem;
+                height: 1.6rem;
+            }
+            .matchImages img{
+                height: 10rem;
+            }
+            .matchImages input {
+                width: 0;
+                height: 0;
+            }
+            .submitBtn{
+                width: 15rem;
+                height: 4rem;
+                line-height: 4rem;
+                font-size: 2rem;
+                border-radius: 1rem;
+                margin: 3rem auto 1rem;
+            }
+            .resultAnalysis, .resultChart{
+                width: auto;
+                display: block;
+                margin-bottom: 3rem;
+            }
+            .resultAnalysis h3, .resultChart h3{
+                font-size: 1.8rem;
+                line-height: 2.1rem;
+                margin-bottom: 2rem;
+            }
+            .resultRow{
+                margin: 1rem 0 1rem 6rem;
+                font-size: 1.6rem;
+                line-height: 2rem;
             }
         }
-        return res.reduce((pre, cur) => {
-            return pre.length > cur.length ? pre : cur;
-        }, []);
-    }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div class="context">
+    <header>分布式深度学习分类识别演示系统</header>
+    <div class="divider"></div>
+    <form onsubmit="return false">
+        <div class="formRow">
+            <label class="formLeft">选择数据集</label>
+            <div class="radioGroup formRight">
+                <div class="radioItem">
+                    <input name="dataSet" type="radio" value="选项1" checked/>
+                    <label>选项1</label>
+                </div>
+                <div class="radioItem">
+                    <input name="dataSet" type="radio" value="选项2"/>
+                    <label>选项2</label>
+                </div>
+                <div class="radioItem">
+                    <input name="dataSet" type="radio" value="选项3"/>
+                    <label>选项3</label>
+                </div>
+            </div>
+        </div>
 
-    console.log(findMaxSub([1,4,2,3,5,10,7,6,8]));
+        <div class="formRow">
+            <label class="formLeft">数据集简介</label>
+            <div class="formRight">
+                <textarea id="dataSetIntroduction"></textarea>
+            </div>
+        </div>
 
-    function jsonP(url, callback, success){
-        let script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = url;
-        window[callback] = function(data){
-            success && success(data);
-            document.removeChild(script);
-            delete window[callback];
+        <div class="divider"></div>
+
+        <div class="formRow">
+            <label class="formLeft">点击图片选择识别任务</label>
+            <div class="formRight matchImages" id="matchRadioGroup">
+                <div class="radioItem">
+                    <input name="images" type="radio" value="图片1" checked/>
+                    <img src=""/>
+                </div>
+                <div class="radioItem">
+                    <input name="images" type="radio" value="图片2"/>
+                    <img src=""/>
+                </div>
+                <div class="radioItem">
+                    <input name="images" type="radio" value="图片3"/>
+                    <img src=""/>
+                </div>
+                <div class="radioItem">
+                    <input name="images" type="radio" value="图片4"/>
+                    <img src=""/>
+                </div>
+            </div>
+        </div>
+
+        <div class="formRow">
+            <label class="formLeft">选择计算方式</label>
+            <div class="radioGroup formRight">
+                <div class="radioItem">
+                    <input name="computedMethod" type="radio" value="选项1" checked/>
+                    <label>选项1</label>
+                </div>
+                <div class="radioItem">
+                    <input name="computedMethod" type="radio" value="选项2"/>
+                    <label>选项2</label>
+                </div>
+                <div class="radioItem">
+                    <input name="computedMethod" type="radio" value="选项3"/>
+                    <label>选项3</label>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="submitBtn" value="开始识别" id="submitBtn"/>
+    </form>
+
+    <div class="divider"></div>
+
+    <div class="resultArea">
+        <div class="resultAnalysis">
+            <h3>识别结果分析</h3>
+            <div class="resultRow">
+                <label>设备类型：</label>
+                <label>111</label>
+            </div>
+            <div class="resultRow">
+                <label>设备计算力：</label>
+                <label>222</label>
+            </div>
+            <div class="resultRow">
+                <label>网络状态：</label>
+                <label>333</label>
+            </div>
+            <div class="resultRow">
+                <label>识别结果：</label>
+                <label>444</label>
+            </div>
+            <div class="resultRow">
+                <label>识别耗时：</label>
+                <label>555</label>
+            </div>
+        </div>
+        <div class="resultChart">
+            <h3>计算分布图</h3>
+            <div id="echarts"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let matchRadioGroup  = document.getElementById('matchRadioGroup');
+    matchRadioGroup.addEventListener('click', function(e){
+        let imgs = matchRadioGroup.getElementsByTagName('img');
+        let inputs = matchRadioGroup.getElementsByTagName('input');
+        let index = [].indexOf.call(imgs, e.target);
+        for(let i = 0; i < inputs.length; i ++){
+            if(i === index){
+                inputs[i].setAttribute('checked', true);
+            } else {
+                inputs[i].removeAttribute('checked');
+            }
         }
-        document.appendChild(script);
-    }
+    });
+    let submitBtn = document.getElementById('submitBtn');
+    submitBtn.addEventListener('click', function(e){
+        let dataSet = document.querySelector('input[name="dataSet"]:checked').value;
+        let dataSetIntroduction = document.getElementById('dataSetIntroduction').value;
+        let matchImages = document.querySelector('input[name="images"]:checked').value;
+        let computedMethod = document.querySelector('input[name="computedMethod"]:checked').value;
+        console.log(dataSet, dataSetIntroduction, matchImages, computedMethod)
+
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: {
+                dataSet,
+                dataSetIntroduction,
+                matchImages,
+                computedMethod
+            },
+            success: (result) => {
+                console.log('success');
+                $('.resultAnalysis .resultRow:nth-child(2) label:last-child').text('1111111');
+                $('.resultAnalysis .resultRow:nth-child(3) label:last-child').text('222222');
+                $('.resultAnalysis .resultRow:nth-child(4) label:last-child').text('133333');
+                $('.resultAnalysis .resultRow:nth-child(5) label:last-child').text('44444');
+                $('.resultAnalysis .resultRow:nth-child(6) label:last-child').text('55555');
+            },
+            error: (e) => {
+                console.log(e);
+            }
+        })
+    });
 </script>
+
 </body>
 </html>

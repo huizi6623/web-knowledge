@@ -119,3 +119,20 @@ BFC(Block formatting context)直译为"块级格式化上下文"。它是一个�
   - transform: scale(0)
   - position:absoulte; left: -999999999
   - height:0
+
+### 9. 层叠上下文
+- 层叠上下文：元素提升为一个比较特殊的图层，在三维空间中 (z轴) 高出普通元素一等。
+- 层叠上下文的触发
+    - HTML中的根元素本身j就具有层叠上下文，称为“根层叠上下文”。
+    - 普通元素设置position属性为非static值并设置z-index属性为具体数值，产生层叠上下文。
+    - CSS3中的新属性也可以产生层叠上下文。
+        - flex
+        - transform
+        - opacity
+        - filter
+        - will-change
+        - -webkit-overflow-scrolling
+- 层叠等级
+    - 普通元素的层叠等级优先由其所在的层叠上下文决定。
+    - 层叠等级的比较只有在当前层叠上下文元素中才有意义。不同层叠上下文中比较层叠等级是没有意义的。
+    ![](images/StackingOrder.jpg)

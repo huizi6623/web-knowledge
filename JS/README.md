@@ -203,7 +203,12 @@ w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true；
 - 取消默认事件：  
 w3c的方法是e.preventDefault()，IE则是使用e.returnValue = false;
 
-### 9. WebWorker
+### 9. 不支持冒泡的事件
+- UI事件：load, unload, resize, scroll
+- 焦点事件：focus, blur
+- 鼠标事件：mouseenter, mouseleave
+
+### 10. WebWorker
 现代浏览器为JavaScript创造的 多线程环境。可以新建并将部分任务分配到worker线程并行运行，两个线程可 独立运行，互不干扰，可通过自带的 消息机制 相互通信。
 
 基本用法:  
