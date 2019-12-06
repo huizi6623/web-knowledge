@@ -1,4 +1,23 @@
 ```
+function foo(){
+    var a = 1;
+    let b = 2;
+    {
+        let b = 3;
+        var c = 4;
+        let d = 5;
+        console.log(a);
+        console.log(b);
+    }
+    console.log(b);
+    console.log(c);
+    console.log(d);
+}
+foo();
+```
+答案：1 3 2 4 报错：Uncaught ReferenceError: d is not defined
+
+```
 document.body.addEventListener('click', () => {
  Promise.resolve().then(()=>console.log(1));
  console.log(2)
