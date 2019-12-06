@@ -17,6 +17,7 @@ foo();
 ```
 答案：1 3 2 4 报错：Uncaught ReferenceError: d is not defined
 
+---
 ```
 document.body.addEventListener('click', () => {
  Promise.resolve().then(()=>console.log(1));
