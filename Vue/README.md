@@ -350,3 +350,57 @@ let reactiveData = new Proxy(data, {
     - `<router-link to=""></router-link>`
 - 占位
     - `<router-view></router-view>`
+    
+### 7. v-for 数组更新检测
+#### 变异方法 (mutation method)
+Vue 将被侦听的数组的变异方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括：
+```
+push()
+pop()
+shift()
+unshift()
+splice()
+sort()
+reverse()
+```
+你可以打开控制台，然后对前面例子的 items 数组尝试调用变异方法。比如 `example1.items.push({ message: 'Baz' })`。
+
+#### 替换数组
+变异方法，顾名思义，会改变调用了这些方法的原始数组。相比之下，也有非变异 (non-mutating method) 方法，例如 filter()、concat() 和 slice() 。它们不会改变原始数组，而总是返回一个新数组。当使用非变异方法时，可以用新数组替换旧数组：
+```
+ example1.items = example1.items.filter(function (item) {
+   return item.message.match(/Foo/)
+ })
+```
+你可能认为这将导致 Vue 丢弃现有 DOM 并重新渲染整个列表。幸运的是，事实并非如此。Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能的启发式方法，所以用一个含有相同元素的数组去替换原来的数组是非常高效的操作。
+
+#### 注意事项
+由于 JavaScript 的限制，Vue 不能检测以下数组的变动：
+
+- 当你利用索引直接设置一个数组项时，例如：`vm.items[indexOfItem] = newValue`  
+
+- 当你修改数组的长度时，例如：`vm.items.length = newLength`  
+
+举个例子：
+```
+var vm = new Vue({
+  data: {
+    items: ['a', 'b', 'c']
+  }
+})
+vm.items[1] = 'x' // 不是响应性的
+vm.items.length = 2 // 不是响应性的
+```
+为了解决第一类问题，以下两种方式都可以实现和 `vm.items[indexOfItem] = newValue` 相同的效果，同时也将在响应式系统内触发状态更新：
+```
+// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)
+```
+你也可以使用 vm.$set 实例方法，该方法是全局方法 Vue.set 的一个别名：  
+`vm.$set(vm.items, indexOfItem, newValue)`
+
+为了解决第二类问题，你可以使用 splice：  
+`vm.items.splice(newLength)`
+
