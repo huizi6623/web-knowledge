@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+function findMaxTotal(arr){
+    let curArr = [], maxArr = [];
+    let curTotal = 0, maxTotal = 0, len = arr.length;
+
+    for(let i = 0; i < len; i ++){
+        curTotal += arr[i];
+        if(curTotal < 0){
+            curTotal = 0;
+            curArr = [];
+        } else {
+            curArr.push(arr[i]);
+            if(curTotal > maxTotal){
+                maxTotal = curTotal;
+                maxArr = curArr.slice();
+            }
+        }
+    }
+    return maxArr;
+}
+
+console.log(findMaxTotal([-1,1,2,3,-4,5]));
+</script>
+</body>
+</html>

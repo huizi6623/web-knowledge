@@ -94,3 +94,28 @@ function find(dataList, where){
         });
         return res;
     }
+    
+#### 6.求一个数组中的所有子数组和最大的子数组
+例如：输入数组[1, -2, 3, 10, -4, 7, 2, -5]
+输出：[3，10，-4，7，2]
+```
+function findMaxTotal(arr){
+    let curArr = [], maxArr = [];
+    let curTotal = 0, maxTotal = 0, len = arr.length;
+
+    for(let i = 0; i < len; i ++){
+        curTotal += arr[i];
+        if(curTotal < 0){
+            curTotal = 0;
+            curArr = [];
+        } else {
+            curArr.push(arr[i]);
+            if(curTotal > maxTotal){
+                maxTotal = curTotal;
+                maxArr = curArr.slice();
+            }
+        }
+    }
+    return maxArr;
+}
+```
