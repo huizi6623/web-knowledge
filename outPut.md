@@ -137,3 +137,16 @@ window.requestIdleCallback()方法将在浏览器的空闲时段内调用的函�
 则有可能为了在超时前执行函数而打乱执行顺序。requestAnimationFrame是高优先级任务，
 requestIdleCallback是低优先级任务，所以idle一定在raf后面，但是timeout顺序不确定，可能在raf之前、之后、idle之后。  
 e.target代表的是触发的目标dom，currentTarget代表的是处于冒泡或者捕获阶段的dom。
+
+```
+var a = 0;
+{
+    a = 1;
+    function a(){}
+    a = 21;
+    console.log(a);
+}
+console.log(a)
+```
+21 1  
+参考文档https://zhuanlan.zhihu.com/p/100856823

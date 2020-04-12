@@ -6,27 +6,33 @@
 </head>
 <body>
 <script>
-function findMaxTotal(arr){
-    let curArr = [], maxArr = [];
-    let curTotal = 0, maxTotal = 0, len = arr.length;
+    console.log(window.a,a);
+    debugger
+    {
+        console.log(window.a,a);
+        // function a(){};
+        a = 10;
+        console.log(window.a,a);
+    };
+    console.log(window.a,a);
 
-    for(let i = 0; i < len; i ++){
-        curTotal += arr[i];
-        if(curTotal < 0){
-            curTotal = 0;
-            curArr = [];
-        } else {
-            curArr.push(arr[i]);
-            if(curTotal > maxTotal){
-                maxTotal = curTotal;
-                maxArr = curArr.slice();
-            }
-        }
-    }
-    return maxArr;
-}
+    // var a=0;
+    // debugger
+    // {
+    //     function a(){}
+    //     a=1;
+    //
+    //     a=21;
+    //     console.log(a);
+    // }
+    // console.log(a);
 
-console.log(findMaxTotal([-1,1,2,3,-4,5]));
+    // console.log(a);
+    // {
+    //     a=10;
+    //     console.log(a)
+    // }
+    // console.log(a);
 </script>
 </body>
 </html>
